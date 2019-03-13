@@ -15,7 +15,7 @@
                  [yogthos/config "1.1.1"]
                  [prone "0.8.2"]
                  [compojure "1.3.3"]
-                 [environ "1.0.0"]
+                 [environ "1.1.0"]
                  [secretary "1.2.3"]
                  [org.clojure/clojurescript "1.10.520"
                   :scope "provided"]
@@ -24,7 +24,7 @@
                  [venantius/accountant "0.2.4"
                   :exclusions [org.clojure/tools.reader]]]
 
-  :plugins [[lein-environ "1.1.0"]
+  :plugins [[lein-environ "1.1.0" :hooks false]
             [lein-cljsbuild "1.1.7"]
             [lein-asset-minifier "0.2.7"
              :exclusions [org.clojure/clojure]]]
@@ -68,24 +68,22 @@
               :source-map true
               :optimizations :none
               :pretty-print  true}}
-
-
-
             }
    }
 
-  :figwheel
-  {:http-server-root "public"
-   :server-port 3449
-   :nrepl-port 7888  ;;<--added
-   :nrepl-middleware [cider.piggieback/wrap-cljs-repl
-                      ]
-   :css-dirs ["resources/public/css"]
-   :ring-handler webtest.handler/app}
 
 
 
-  :profiles {:dev {:repl-options {:init-ns webtest.repl}
+  :profiles {:dev {  :figwheel
+                   {:http-server-root "public"
+                    :server-port 3449
+                    :nrepl-port 7888  ;;<--added
+                    :nrepl-middleware [cider.piggieback/wrap-cljs-repl
+                                       ]
+                    :css-dirs ["resources/public/css"]
+                    :ring-handler webtest.handler/app}
+
+                   :repl-options {:init-ns webtest.repl}
                    :dependencies [[cider/piggieback "0.4.0"]
                                   [binaryage/devtools "0.9.10"]
                                   [ring/ring-mock "0.3.2"]
